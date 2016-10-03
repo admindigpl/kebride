@@ -16,7 +16,7 @@ body {
     max-width: 940px;
     margin: 0 auto;
     font-size: 0;
-/*    outline: 1px solid red;*/
+    /*    outline: 1px solid red;*/
 }
 
 .logo {
@@ -104,8 +104,9 @@ body {
 }
 
 .index-menu ul li a:hover {
-    color: #0f0;
-    background-color: #fff;
+    /*    color: #0f0;*/
+    color: #000;
+    background-color: rgba(255, 255, 255, .75);
 }
 
 .select {
@@ -169,7 +170,7 @@ body {
     margin-bottom: 120px;
     margin-left: 350px;
     padding: 22px 0;
-    color: #fff;
+    color: #000;
     font-family: Courier;
     font-size: 18px;
     font-weight: bold;
@@ -177,12 +178,12 @@ body {
     text-align: center;
     text-transform: uppercase;
     border-radius: 3px;
-    background-color: #21411e;
+    background-color: rgba(33, 65, 30, .7);
 }
 
 .btn:hover {
-    color: #21411e;
-    background-color: #fff;
+    color: #bababa;
+    background-color: rgba(33, 65, 30, .8);
 }
 
 .features,
