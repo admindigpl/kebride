@@ -1,6 +1,12 @@
 body {
-    font-family: Courier New Regular;
+    font-family: Courier;
     font-size: 18px;
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .index-header {
@@ -444,3 +450,293 @@ a.footer-text:last-child {
 a.footer-text:hover {
     color: #000;
 }
+
+
+/*--- модальное окно Вход на сайт ----*/
+
+#modal_window_enter,
+#modal_window_reg {
+    display: none;
+}
+
+.fixed-overlay {
+    position: fixed;
+    overflow: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    white-space: nowrap;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fixed-overlay__modal {
+    /*    text-align: center;*/
+    /*    white-space: nowrap;*/
+}
+
+.fixed-overlay__modal::after {
+    /*    display: inline-block;*/
+    /*    vertical-align: middle;*/
+    /*    width: 0;*/
+    /*    height: 100%;*/
+    /*    content: '';*/
+}
+
+.fixed-overlay::after {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 100%;
+    content: '';
+}
+
+.modal {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.modal-window-container {
+    width: 630px;
+    min-width: 200px;
+    padding: 25px 35px;
+    text-align: left;
+    white-space: normal;
+    background-color: #d8e7d8;
+    border-radius: 3px;
+}
+
+.modal-window-container span {
+    display: block;
+    text-align: center;
+    color: #21411e;
+    font-size: 14px;
+}
+
+.modal-window-container span a {
+    color: #21411e;
+}
+
+.modal-window-title-enter h2,
+.modal-window-title-reg h2 {
+    float: left;
+    color: #21411e;
+    margin: 5px 332px 30px 0;
+}
+
+.modal-window-title-reg h2 {
+    margin-right: 413px;
+}
+
+.modal-window-close.icon {
+    display: inline-block;
+    vertical-align: top;
+    color: red;
+    position: absolute;
+    margin-top: 0;
+    margin-left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.modal-window-close.icon:before {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 4px;
+    width: 21px;
+    height: 2px;
+    background-color: currentColor;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.modal-window-close.icon:after {
+    content: '';
+    position: absolute;
+    top: 13px;
+    left: 4px;
+    width: 21px;
+    height: 2px;
+    background-color: currentColor;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.modal-window-close.icon:hover {
+    color: #fff;
+    background-color: red;
+}
+
+.error {
+    display: none;
+    margin: 0;
+    margin-bottom: 30px;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: red;
+    border-radius: 3px;
+}
+
+.social-auth {
+    float: left;
+    width: 300px;
+    margin-right: 30px;
+}
+
+.social-auth-btn {
+    display: inline-block;
+    width: 250px;
+    margin-bottom: 15px;
+    vertical-align: top;
+    padding: 18px 0 18px 50px;
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.social-auth-fb {
+    position: relative;
+    background-color: #3d5c96;
+}
+
+.social-auth-btn:hover {
+    opacity: .8;
+}
+
+.social-auth-vk {
+    position: relative;
+    background-color: #2a5885;
+}
+
+.social-auth-fb:before,
+.social-auth-vk:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 54px;
+    height: 42px;
+    padding-top: 12px;
+    content: 'f';
+    font-weight: bold;
+    color: #fff;
+    font-size: 25px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background: #1a4780;
+}
+
+.social-auth-vk:before {
+    content: 'B';
+    background: #1a4876;
+}
+
+.classic-auth {
+    float: left;
+    width: 300px;
+}
+
+.classic-auth input[type=email],
+.classic-auth input[type=password],
+.forgot-password-form input[type=email] {
+    width: 258px;
+    margin-bottom: 15px;
+    padding: 17px 20px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid #c4c4c4;
+    outline: none;
+    background-color: #f7f7f7;
+}
+
+.modal-window-btn {
+    float: left;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.modal-window-enter-user input[type=submit],
+.modal-window-reg-user input[type=submit] {
+    width: 200px;
+    margin: 0 10px 25px 215px;
+    padding: 16px 0;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+}
+
+.modal-window-reg-user input[type=submit] {
+    /*    width: 350px;*/
+    margin-left: 215px;
+}
+
+.forgot-password-form {
+    display: none;
+    margin-bottom: 13px;
+}
+
+.forgot-password-form input[type=submit] {
+    width: 200px;
+    margin: 0 30px 0 0;
+    padding: 16px 0;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+}
+
+.forgot-password-form input[type=email] {
+    float: left;
+    width: 310px;
+    margin-right: 25px;
+}
+
+.divider {
+    display: block;
+    height: 1px;
+    margin: 5px 0;
+    background-color: #c4c4c4;
+}
+
+.forgot-registration,
+.switch-enter-form {
+    padding-top: 10px;
+    color: #21411e;
+}
+
+.forgot-registration span,
+.switch-enter-form span {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 18px;
+    margin-right: 132px;
+    vertical-align: top;
+}
+
+.switch-enter-form span {
+    margin-right: 0;
+    margin-left: 228px;
+}
+
+.forgot-registration span a,
+.switch-enter-form span a {
+    color: #21411e;
+    text-decoration: none;
+}
+
+.forgot-registration span a:hover,
+.switch-enter-form span a:hover {
+    text-decoration: underline;
+}
+
+.forgot-registration span:last-child {
+    margin-right: 0;
+}
+
+
+/*--- конец модального окна Вход на сайт ---*/

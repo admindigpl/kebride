@@ -30,7 +30,7 @@
                         <a href="">Join us</a>
                     </li>
                     <li>
-                        <a href="">Log in</a>
+                        <a href="#" onclick="showModalWindow('modal_window_enter')">Log in</a>
                     </li>
                 </ul>
             </nav>
@@ -42,7 +42,7 @@
             <a class="vk" href="http://vk.com"></a>
             <div class="slogan"></div>
             <h1 class="index-title">Kebride brings creative people together<br> and helps them to earn</h1>
-            <a class="btn" href="">join kebride now</a>
+            <a class="btn" href="#" onclick="showModalWindow('modal_window_reg')">join kebride now</a>
         </div>
     </header>
     <section class="features">
@@ -92,7 +92,7 @@
         <div class="container">
             <span class="promoblock-text">We know you have something to upload!</span>
             <span class="promoblock-text">Ready to join us?</span>
-            <a class="btn" href="">join kebride now</a>
+            <a class="btn" href="#" onclick="showModalWindow('modal_window_reg')">join kebride now</a>
         </div>
     </section>
     <footer class="index-footer">
@@ -103,6 +103,111 @@
             <a href="" class="footer-text">Privacy policy</a>
         </div>
     </footer>
+    <!--модальное окно Вход на сайт-->
+    <div class="fixed-overlay" id="modal_window_enter">
+        <div class="modal">
+            <div class="modal-window-container claerfix">
+                <div class="modal-window-title-enter clearfix">
+                    <h2>Log in to Kebride</h2>
+                    <a href="#" class="modal-window-close icon" title="Закрыть окно" onclick="closeModalWindow('modal_window_enter')"></a>
+                </div>
+                <!-- форма входа на сайт, данные отправляются скрипту enter_site.php -->
+                <form class="modal-window-enter-user clearfix" action="enter_site.php" method="post">
+                    <!-- текст "Пользователь с таким именем не зарегистрирован!" должен генерировать php, тут нужно применить ajax  -->
+                    <h3 class="error">Пользователь с таким именем не зарегистрирован!</h3>
+                    <!--   -->
+                    <div class="social-auth">
+                        <a class="social-auth-btn social-auth-fb" href="#">Log in with Facebook</a>
+                        <a class="social-auth-btn social-auth-vk" href="#">Log in with VK</a>
+                    </div>
+                    <div class="classic-auth">
+                        <input class="" type="email" name="user_login" id="user_login" placeholder="Email address" required>
+                        <input class="" type="password" name="user_password" id="user_password" placeholder="Password" required>
+                    </div>
+                    <!-- при нажатии на эту кнопку переменные user_login user_password отправляются скрипту enter_site.php   -->
+                    <input class="btn" id="form_enter_btn_submit" type="submit" name="submit" value="Log in">
+                    <!--   -->
+                </form>
+                <!-- форма для смены пароля -->
+                <form class="forgot-password-form clearfix" id="forgot_password_form" action="forgot_password.php" method="post">
+                    <!-- текст "Пользователь с таким именем не зарегистрирован!" должен генерировать php, тут нужно применить ajax  -->
+                    <h3 class="error"></h3>
+                    <input type="email" name="user_email" id="user_email" placeholder="Ваш E-mail" required>
+                    <!-- при нажатии на эту кнопку переменная user_email отправляются скрипту forgot_password.php   -->
+                    <input class="btn" type="submit" name="submit" value="continue">
+                    <!--     -->
+                    <a href="#" class="modal-window-close icon" title="Закрыть окно" onclick="toggleClass('form_enter_btn_submit', 'forgot_password_form')"></a>
+                </form>
+                <span class="divider"></span>
+                <div class="forgot-registration">
+                    <span>Don't have an <a href='#' onclick="toggleClass('modal_window_reg', 'modal_window_enter')">account yet</a>?</span>
+                    <span>Or  <a class="forgot-password" href="#" onclick="toggleClass('forgot_password_form', 'form_enter_btn_submit')">forgot password?</a></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--модальное окно Регистрация-->
+    <div class="fixed-overlay" id="modal_window_reg">
+        <div class="modal">
+            <div class="modal-window-container claerfix">
+                <div class="modal-window-title-reg clearfix">
+                    <h2>Join Kebride</h2>
+                    <a href="#" class="modal-window-close icon" title="Закрыть окно" onclick="closeModalWindow('modal_window_reg')"></a>
+                </div>
+                <!-- форма регистрации на сайте, данные отправляются скрипту reg_site.php -->
+                <form class="modal-window-reg-user clearfix" action="reg_site.php" method="post">
+                    <div class="social-auth">
+                        <a class="social-auth-btn social-auth-fb" href="#">Sign up with Facebook</a>
+                        <a class="social-auth-btn social-auth-vk" href="#">Sign up with VK</a>
+                    </div>
+                    <div class="classic-auth">
+                        <input class="" type="email" name="new_user_login" id="new_user_login" placeholder="Email address" required>
+                        <input class="" type="password" name="new_user_password" id="new_user_password" placeholder="Password" required>
+                    </div>
+                    <!-- при нажатии на эту кнопку переменные new_user_login new_user_password отправляются скрипту reg_site.php   -->
+                    <input class="btn" id="form_reg_btn_submit" type="submit" value="Sign up">
+                    <!--    -->
+                </form>
+                <span>By clicking "Sign up" you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                <span class="divider"></span>
+                <div class="switch-enter-form">
+
+                    <span>Have an <a href="#" onclick="toggleClass('modal_window_enter', 'modal_window_reg')">account</a>?</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        //показать модальное окно
+        function showModalWindow(elem) {
+            var element = document.getElementById(elem);
+            element.style.display = 'block';
+        }
+        //скрыть модальное окно
+        function closeModalWindow(elem) {
+            var element = document.getElementById(elem);
+            element.style.display = 'none';
+        }
+        //переключение классов
+        function toggleClass(elem1, elem2) {
+            var element1 = document.getElementById(elem1);
+            var element2 = document.getElementById(elem2)
+            element1.style.display = 'block';
+            element2.style.display = 'none';
+        }
+        //скрыть модальное окно при нажатии на Esc
+        window.addEventListener("keydown", function (event) {
+            if (event.keyCode == 27) {
+                var modal_window_enter = document.getElementById('modal_window_enter');
+                var modal_window_reg = document.getElementById('modal_window_reg');
+                modal_window_enter.style.display = 'none';
+                modal_window_reg.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>
