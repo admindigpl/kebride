@@ -15,6 +15,7 @@
     <header class="index-header">
         <div class="container">
             <img class="logo" src="img/logo.png" alt="logo" width="134" height="28">
+            <!--            -->
             <form class="search" action="search.php" method="get">
                 <input type="text" name="search" id="search" placeholder="Search products">
             </form>
@@ -27,7 +28,7 @@
                         <a href="">Pricing</a>
                     </li>
                     <li>
-                        <a href="">Join us</a>
+                        <a href="#" onclick="showModalWindow('modal_window_reg')">Join us</a>
                     </li>
                     <li>
                         <a href="#" onclick="showModalWindow('modal_window_enter')">Log in</a>
@@ -132,6 +133,7 @@
                 <form class="forgot-password-form clearfix" id="forgot_password_form" action="forgot_password.php" method="post">
                     <!-- текст "Пользователь с таким именем не зарегистрирован!" должен генерировать php, тут нужно применить ajax  -->
                     <h3 class="error"></h3>
+                    <div class="modal_window_enter-block"></div>
                     <input type="email" name="user_email" id="user_email" placeholder="Ваш E-mail" required>
                     <!-- при нажатии на эту кнопку переменная user_email отправляются скрипту forgot_password.php   -->
                     <input class="btn" type="submit" name="submit" value="continue">
@@ -140,7 +142,7 @@
                 </form>
                 <span class="divider"></span>
                 <div class="forgot-registration">
-                    <span>Don't have an <a href='#' onclick="toggleClass('modal_window_reg', 'modal_window_enter')">account yet</a>?</span>
+                    <span><a href='#' onclick="toggleClass('modal_window_reg', 'modal_window_enter')">Don't have an account yet</a>?</span>
                     <span>Or  <a class="forgot-password" href="#" onclick="toggleClass('forgot_password_form', 'form_enter_btn_submit')">forgot password?</a></span>
                 </div>
 
@@ -173,10 +175,8 @@
                 <span>By clicking "Sign up" you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
                 <span class="divider"></span>
                 <div class="switch-enter-form">
-
-                    <span>Have an <a href="#" onclick="toggleClass('modal_window_enter', 'modal_window_reg')">account</a>?</span>
+                    <span><a href="#" onclick="toggleClass('modal_window_enter', 'modal_window_reg')">Have an account</a>?</span>
                 </div>
-
             </div>
         </div>
     </div>

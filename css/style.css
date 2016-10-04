@@ -603,7 +603,7 @@ a.footer-text:hover {
 
 .social-auth-fb {
     position: relative;
-    background-color: #3d5c96;
+    background-color: #5175b8;
 }
 
 .social-auth-btn:hover {
@@ -621,20 +621,21 @@ a.footer-text:hover {
     top: 0;
     left: 0;
     width: 54px;
-    height: 42px;
-    padding-top: 12px;
-    content: 'f';
+    height: 54px;
+    /*    padding-top: 12px;*/
+    content: '';
     font-weight: bold;
     color: #fff;
     font-size: 25px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    background: #1a4780;
+    background: #1a4780 url(../img/icon-fb.jpg) 50% 50% no-repeat;
 }
 
 .social-auth-vk:before {
-    content: 'B';
-    background: #1a4876;
+    content: '';
+    /*    background: #1a4876;*/
+    background: #1a4876 url(../img/vk.png) 50% 50% no-repeat;
 }
 
 .classic-auth {
@@ -677,8 +678,18 @@ a.footer-text:hover {
 }
 
 .forgot-password-form {
+    position: relative;
     display: none;
     margin-bottom: 13px;
+}
+
+.modal_window_enter-block {
+    position: absolute;
+    top: -140px;
+    left: -2px;
+    width: 635px;
+    height: 130px;
+    background-color: rgba(216, 231, 216, .8);
 }
 
 .forgot-password-form input[type=submit] {
