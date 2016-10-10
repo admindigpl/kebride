@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -89,13 +89,13 @@
             <a class="product-item movie" href="#"><span class="product-item-title">Movies and Clips</span></a>
         </div>
     </section>
-    <section class="promoblock">
+    <div class="promoblock">
         <div class="container">
             <span class="promoblock-text">We know you have something to upload!</span>
             <span class="promoblock-text">Ready to join us?</span>
             <a class="btn" href="#" onclick="showModalWindow('modal_window_reg')">join kebride now</a>
         </div>
-    </section>
+    </div>
     <footer class="index-footer">
         <div class="container">
             <img class="logo" src="img/logo.png" alt="logo" width="134" height="28">
@@ -132,7 +132,7 @@
                 <!-- форма для смены пароля -->
                 <form class="forgot-password-form clearfix" id="forgot_password_form" action="forgot_password.php" method="post">
                     <!-- текст "Пользователь с таким именем не зарегистрирован!" должен генерировать php, тут нужно применить ajax  -->
-                    <h3 class="error"></h3>
+                    <h3 class="error">Пользователь с таким именем не зарегистрирован!</h3>
                     <div class="modal_window_enter-block"></div>
                     <input type="email" name="user_email" id="user_email" placeholder="Ваш E-mail" required>
                     <!-- при нажатии на эту кнопку переменная user_email отправляются скрипту forgot_password.php   -->
@@ -153,7 +153,7 @@
     <!--модальное окно Регистрация-->
     <div class="fixed-overlay" id="modal_window_reg">
         <div class="modal">
-            <div class="modal-window-container claerfix">
+            <div class="modal-window-container clearfix">
                 <div class="modal-window-title-reg clearfix">
                     <h2>Join Kebride</h2>
                     <a href="#" class="modal-window-close icon" title="Закрыть окно" onclick="closeModalWindow('modal_window_reg')"></a>
@@ -169,7 +169,7 @@
                         <input class="" type="password" name="new_user_password" id="new_user_password" placeholder="Password" required>
                     </div>
                     <!-- при нажатии на эту кнопку переменные new_user_login new_user_password отправляются скрипту reg_site.php   -->
-                    <input class="btn" id="form_reg_btn_submit" type="submit" value="Sign up">
+                    <input class="btn" id="form_reg_btn_submit" type="submit" name="submit" value="Sign up">
                     <!--    -->
                 </form>
                 <span>By clicking "Sign up" you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
