@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <script src="js/RGraph/RGraph.common.core.js"></script> // Always required
+    <script src="js/RGraph/RGraph.common.dynamic.js"></script> // Only required for dynamic features
+    <script src="js/RGraph/RGraph.common.tooltips.js"></script> // Only required for tooltips
+    <script src="js/RGraph/RGraph.line.js"></script>
+    <script src="js/RGraph/RGraph.scatter.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <h1>Header level 1</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum molestias repellat eveniet, consequuntur molestiae, consectetur iure corporis voluptate beatae ad cupiditate optio consequatur quasi fuga delectus totam facilis quos minus!</p>
+            <div class="item-container">
+                <div class="item">
+                    <h2>Header level 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis at dolorum perspiciatis quam nostrum natus, ducimus perferendis laboriosam corrupti veniam beatae provident similique magnam asperiores eaque nemo, earum obcaecati explicabo.</p>
+                </div>
+                <div class="item">
+                    <h2>Header level 2</h2>
+                    <p>Debitis laudantium tenetur ipsum vero, explicabo, tempora adipisci consectetur eligendi ad expedita, sint laborum repudiandae quam fugiat alias velit. Consectetur aperiam accusantium quos iusto sint voluptatem, rem quidem in tenetur.</p>
+                </div>
+                <div class="item">
+                    <h2>Header level 2</h2>
+                    <p>Perspiciatis illo molestiae, soluta libero dignissimos, amet quis in ut laborum mollitia blanditiis labore quam autem numquam minus delectus laudantium! Ullam labore beatae, optio ipsam quidem cumque debitis animi quis.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <input type="date">
+    <div class="container">
+        <canvas id="cvs" width="940" height="450">[No canvas support]</canvas>
+    </div>
+
+    <script>
+        /**
+         * Ths window.onload function initiates the AJAX request. The AJAX page is: http://www.rgraph.net/getdata.html?json
+         * If you view this in your browser you'll see that all it does is output a JSON object (a JavaScript object).
+         */
+        window.onload = function () {
+            RGraph.AJAX.getJSON('getdata.html?json', drawGraph);
+        };
+
+
+
+        /**
+         * This is the AJAX callback function. It splits up the response, converts it to numbers and then creates the chart.
+         */
+        function drawGraph(json) {
+            // Set the JSON on the window object so that the button below can show it to the user.
+            // window.__json__ = json;
+
+            var y_scale = 0;
+            var tips = [];
+            for (var i = 0; i < json.data.length; i++) {
+                tips.push(json.data[i].toString());
+                if (json.data[i] > y_scale) {
+                    y_scale = json.data[i];
+                }
+            }
+            //tips = toString();
+            console.log(tips);
+
+            // Now draw the chart
+            var line = new RGraph.Line({
+                id: 'cvs',
+                data: json.data,
+                options: {
+                    textAccessible: true,
+                    hmargin: 0,
+                    linewidth: 4,
+                    ymax: y_scale,
+                    ylabelsCount: y_scale,
+                    numyticks: y_scale,
+                    backgroundGridAutofitNumhlines: y_scale,
+                    labels: json.labels,
+                    gutterLeft: 35,
+                    tickmarks: 'circle',
+                    ticksize: 4,
+                    tooltips: tips,
+                    colors: ['green', '#e5e5e5']
+                }
+            }).draw();
+        }
+        //http://www.rgraph.net/docs/line.html#colors
+    </script>
+
+</body>
+
+</html>

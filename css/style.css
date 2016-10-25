@@ -761,8 +761,13 @@ a.footer-text:hover {
 
 .inner-header {
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
     padding-top: 40px;
+}
+
+.inner-header .logo {
+    margin-right: 10.2777em/*185px*/
+    ;
 }
 
 .inner-menu {
@@ -770,7 +775,6 @@ a.footer-text:hover {
     margin-top: 0;
     padding: 0;
     vertical-align: top;
-    font-size: 1.333em;
     list-style: none;
 }
 
@@ -779,38 +783,110 @@ a.footer-text:hover {
     vertical-align: top;
 }
 
-.inner-menu li a {
-    
-}
-
-.inner-menu li a i {
-    color: #000;
-}
-
-.inner-menu li a:hover {
+.inner-menu li a:hover,
+.left-column ul li a:hover {
     color: #0f0;
 }
 
-.inner-menu-link-dashboard {
+.inner-menu-link-dashboard,
+.inner-menu-link-profile,
+.inner-menu-link-community {
     position: relative;
     display: inline-block;
-    padding: 5px 5px 5px 24px;
+    margin-right: .4166em;
+    /*10*/
+    padding: 0 .2em .4166em 1.2916em;
+    /*0 5 10 31*/
     vertical-align: top;
+    font-size: 1.333em;
+    font-weight: bold;
     color: #21411e;
     text-decoration: none;
 }
 
-.inner-menu-link-dashboard:before {
+.inner-menu-link-profile {
+    padding-left: .9166em;
+    /*22*/
+}
+
+.inner-menu-link-community {
+    padding-left: 1.041em;
+    /*25*/
+}
+
+.inner-menu-link-dashboard:before,
+.inner-menu-link-profile:before,
+.inner-menu-link-community:before {
     position: absolute;
-    top: 1px;
+    top: 4px;
     left: 1px;
     width: 25px;
     height: 25px;
     font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: .833em;
     content: '\f0ae';
     color: #000;
 }
 
-.inner-menu-link-dashboard.active-item:before {
+.inner-menu-link-profile:before {
+    content: '\f007';
+}
+
+.inner-menu-link-community:before {
+    content: '\f0ac';
+}
+
+.inner-menu-link-dashboard.active-item:before,
+.inner-menu-link-profile.active-item:before,
+.inner-menu-link-community.active-item:before {
     color: #0f0;
+}
+
+.left-column {
+    float: left;
+    width: 145px;
+    margin-right: 10px;
+}
+
+.left-column-list-title {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.333em;
+    font-weight: bold;
+    color: #21411e;
+    text-align: right;
+}
+
+.left-column ul {
+    margin: 0;
+    margin-bottom: 17px;
+    padding: 0;
+    list-style: none;
+}
+
+.left-column ul li a {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #21411e;
+    text-align: right;
+    text-decoration: none;
+}
+
+.left-column ul li a span {
+    display: block;
+}
+
+.left-column .active-item {
+    color: #0f0;
+}
+
+.right-column {
+    float: right;
+    width: 780px;
+    min-height: 500px;
+    background-color: #f7f7f7;
+    border-radius: 15px;
 }
