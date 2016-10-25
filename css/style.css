@@ -21,8 +21,12 @@ body {
 .container {
     max-width: 940px;
     margin: 0 auto;
+    /*    font-size: 0;*/
+    outline: 1px solid red;
+}
+
+.reset-font {
     font-size: 0;
-    /*    outline: 1px solid red;*/
 }
 
 .logo {
@@ -751,3 +755,62 @@ a.footer-text:hover {
 
 
 /*--- конец модального окна Вход на сайт ---*/
+
+
+/*---- page dashboard_analytics_sales.html ---*/
+
+.inner-header {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.inner-menu {
+    display: inline-block;
+    margin-top: 0;
+    padding: 0;
+    vertical-align: top;
+    font-size: 1.333em;
+    list-style: none;
+}
+
+.inner-menu li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.inner-menu li a {
+    
+}
+
+.inner-menu li a i {
+    color: #000;
+}
+
+.inner-menu li a:hover {
+    color: #0f0;
+}
+
+.inner-menu-link-dashboard {
+    position: relative;
+    display: inline-block;
+    padding: 5px 5px 5px 24px;
+    vertical-align: top;
+    color: #21411e;
+    text-decoration: none;
+}
+
+.inner-menu-link-dashboard:before {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 25px;
+    height: 25px;
+    font-family: 'FontAwesome';
+    content: '\f0ae';
+    color: #000;
+}
+
+.inner-menu-link-dashboard.active-item:before {
+    color: #0f0;
+}

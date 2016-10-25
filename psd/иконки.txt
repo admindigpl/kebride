@@ -1,0 +1,6 @@
+dashboard http://fontawesome.io/icon/tasks/
+profile http://fontawesome.io/icon/user/
+community http://fontawesome.io/icon/globe/
+notification empty http://fontawesome.io/icon/bell-o/
+notification http://fontawesome.io/icon/bell/
+photo ava empty http://fontawesome.io/icon/file-image-o/
