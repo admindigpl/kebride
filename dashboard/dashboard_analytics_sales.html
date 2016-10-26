@@ -60,8 +60,8 @@
         <div class="right-column">
             <form action="../select_date_product.php" method="get" class="clearfix" id="select_date_product">
                 <div class="select-date">Select date:
-                    <input type="date" id="start_graph_sales_date" name="start_graph_sales_date" onchange="this.form.submit()"> -
-                    <input type="date" id="end_graph_sales_date" name="end_graph_sales_date">
+                    <input type="date" id="start_graph_sales_date" name="start_graph_sales_date" onchange="getDate()"> -
+                    <input type="date" id="end_graph_sales_date" name="end_graph_sales_date" onchange="getDate()">
                 </div>
                 <div class="select-product">
                     <select name="select_product" id="select_product">
@@ -81,14 +81,88 @@
             <a href="" class="footer-text">Privacy policy</a>
         </div>
     </footer>
+
     <script>
+        var days = [];
+        //var v = 0;
+
+        function getDate() {
+            var start_date = document.getElementById('start_graph_sales_date');
+            var end_date = document.getElementById('end_graph_sales_date');
+            end_date.setAttribute('min', start_date.value);
+            var start_timestamp = Date.parse(start_date.value);
+            var end_timestamp = Date.parse(end_date.value);
+            var n_days = (end_timestamp - start_timestamp) / 86400000;
+            for (var i = 0; i <= n_days; i++) {
+                var format = new Date(start_timestamp + i * 86400000);
+                var date = format.getDate();
+                if (date < 10) {
+                    date = '0' + date;
+                } else {
+                    date = date;
+                }
+                var month = +format.getMonth() + 1;
+                if (month < 10) {
+                    month = '0' + month;
+                } else {
+                    month = month;
+                }
+                days.push(date + '/' + month + '/' + format.getFullYear());
+
+            }
+
+
+            //end_day.push(elem);
+            console.log('start_day ' + start_date.value);
+            console.log('end_day ' + end_date.value);
+            console.log('n_days ' + n_days);
+            console.log('arr days ' + days);
+
+        }
+        //console.log('end_day ' + end_day);
+
+        function getXmlHttp() {
+            var xmlhttp;
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (E) {
+                    xmlhttp = false;
+                }
+            }
+            if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+                xmlhttp = new XMLHttpRequest();
+            }
+            return xmlhttp;
+        }
+        // проверить таб.№ на занятость
+        //var start_day = '';
+
+        function getDate1() {
+            var req = getXmlHttp();
+            var start_date = document.getElementById('start_graph_sales_date').value;
+
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        var rez = req.responseText.trim();
+                    }
+                }
+
+            }
+            req.open('GET', '../select_date_product.php?start_date=' + start_date, true);
+            req.send(null);
+        }
+        //var start_day = getDate();
+        // console.log('start_day ' + start_day);
         window.onload = function () {
             //RGraph.AJAX.getJSON('getdata.html?json', drawGraph);
         };
         window.onload = function () {
                 //function drawGraph(json) {
-                var start_day = document.getElementById('start_graph_sales_date');
-                console.log('start_day ' + start_day);
+
 
                 var y_scale = 10; //0
                 var tips = ['0', '10', '0', '3', '1']; //[]
@@ -103,22 +177,24 @@
                     // data: json.data,
                     data: [0, 10, 0, 3, 1],
                     options: {
-                        textAccessible: true,
+                        textAccessible: false,
                         hmargin: 15,
-                        gutterBottom: 80,
+                        gutterBottom: 100,
                         linewidth: 3,
+                        numxticks: 10,
+                        backgroundGridAutofitNumvlines: 10,
                         ymax: y_scale,
                         ylabelsCount: y_scale,
                         numyticks: y_scale,
                         backgroundGridAutofitNumhlines: y_scale,
                         //labels: json.labels,
-                        labels: ['1.10.2016', ' 2.10.2016', '3.10.2016', '4.10.2016', '5.10.2016'],
+                        labels: days, //['1.10.2016', ' 2.10.2016', '3.10.2016', '4.10.2016', '5.10.2016'],
                         gutterLeft: 35,
                         tickmarks: 'circle',
                         ticksize: 3,
                         tooltips: tips,
                         colors: ['#345132', '#e5e5e5'],
-                        textAngle: 90
+                        textAngle: 60
                     }
                 }).draw();
             }
