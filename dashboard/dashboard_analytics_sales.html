@@ -60,7 +60,7 @@
         <div class="right-column">
             <form action="../select_date_product.php" method="get" class="clearfix" id="select_date_product">
                 <div class="select-date">Select date:
-                    <input type="date" id="start_graph_sales_date" name="start_graph_sales_date"> -
+                    <input type="date" id="start_graph_sales_date" name="start_graph_sales_date" onchange="this.form.submit()"> -
                     <input type="date" id="end_graph_sales_date" name="end_graph_sales_date">
                 </div>
                 <div class="select-product">
@@ -87,6 +87,8 @@
         };
         window.onload = function () {
                 //function drawGraph(json) {
+                var start_day = document.getElementById('start_graph_sales_date');
+                console.log('start_day ' + start_day);
 
                 var y_scale = 10; //0
                 var tips = ['0', '10', '0', '3', '1']; //[]
