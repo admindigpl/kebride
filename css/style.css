@@ -816,7 +816,9 @@ a.footer-text:hover {
 
 .inner-menu-link-dashboard:before,
 .inner-menu-link-profile:before,
-.inner-menu-link-community:before {
+.inner-menu-link-community:before,
+.inner-notice:before,
+.inner-user-submenu:before {
     position: absolute;
     top: 4px;
     left: 1px;
@@ -843,9 +845,37 @@ a.footer-text:hover {
     color: #0f0;
 }
 
+.inner-notice,
+.inner-user-submenu {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 20px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.inner-user-submenu {
+    width: 30px;
+    margin-right: 0;
+}
+
+.inner-notice:before {
+    top: 7px;
+    font-weight: bold;
+    content: '\f0a2';
+}
+
+.inner-user-submenu:before {
+    top: 1px;
+    font-size: 1.5em;
+    content: '\f1c5';
+}
+
 .left-column {
     float: left;
     width: 145px;
+    margin-top: 15px;
     margin-right: 10px;
 }
 
@@ -889,4 +919,24 @@ a.footer-text:hover {
     min-height: 500px;
     background-color: #f7f7f7;
     border-radius: 15px;
+}
+
+.select-date,
+.select-product {
+    float: right;
+    margin-top: 20px;
+    margin-right: 20px;
+    font-size: 1.333em;
+    font-weight: bold;
+    color: #21411e;
+}
+
+.select-date input[type=date] {
+    /*    width: 200px;*/
+    height: 31px;
+    outline: none;
+}
+
+.select-product select {
+    outline: none;
 }

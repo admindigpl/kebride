@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../fonts/font-awesome.min.css">
     <title>KEBRIDE</title>
+    <script src="../js/RGraph/RGraph.common.core.js"></script>
+    <script src="../js/RGraph/RGraph.common.dynamic.js"></script>
+    <script src="../js/RGraph/RGraph.common.tooltips.js"></script>
+    <script src="../js/RGraph/RGraph.line.js"></script>
+    <script src="../js/RGraph/RGraph.scatter.js"></script>
 </head>
 
 <body>
@@ -22,6 +27,8 @@
                 <li><a class="inner-menu-link-profile" href="#">Profile</a></li>
                 <li><a class="inner-menu-link-community" href="#">Community</a></li>
             </ul>
+            <div class="inner-notice"></div>
+            <div class="inner-user-submenu"></div>
         </div>
     </header>
     <div class="container clearfix">
@@ -51,7 +58,19 @@
             <span class="left-column-list-title">Order settings</span>
         </div>
         <div class="right-column">
-            
+            <form action="../select_date_product.php" method="get" class="clearfix" id="select_date_product">
+                <div class="select-date">Select date:
+                    <input type="date" id="start_graph_sales_date" name="start_graph_sales_date"> -
+                    <input type="date" id="end_graph_sales_date" name="end_graph_sales_date">
+                </div>
+                <div class="select-product">
+                    <select name="select_product" id="select_product">
+                        <option>Select product</option>
+                        <option value="all">All products</option>
+                    </select>
+                </div>
+            </form>
+            <canvas id="cvs" width="780" height="550">[No canvas support]</canvas>
         </div>
     </div>
     <footer class="index-footer">
@@ -62,6 +81,47 @@
             <a href="" class="footer-text">Privacy policy</a>
         </div>
     </footer>
+    <script>
+        window.onload = function () {
+            //RGraph.AJAX.getJSON('getdata.html?json', drawGraph);
+        };
+        window.onload = function () {
+                //function drawGraph(json) {
+
+                var y_scale = 10; //0
+                var tips = ['0', '10', '0', '3', '1']; //[]
+                //   for (var i = 0; i < json.data.length; i++) {
+                //  tips.push(json.data[i].toString());
+                // if (json.data[i] > y_scale) {
+                //      y_scale = json.data[i];
+                //    }
+                //  }
+                var line = new RGraph.Line({
+                    id: 'cvs',
+                    // data: json.data,
+                    data: [0, 10, 0, 3, 1],
+                    options: {
+                        textAccessible: true,
+                        hmargin: 15,
+                        gutterBottom: 80,
+                        linewidth: 3,
+                        ymax: y_scale,
+                        ylabelsCount: y_scale,
+                        numyticks: y_scale,
+                        backgroundGridAutofitNumhlines: y_scale,
+                        //labels: json.labels,
+                        labels: ['1.10.2016', ' 2.10.2016', '3.10.2016', '4.10.2016', '5.10.2016'],
+                        gutterLeft: 35,
+                        tickmarks: 'circle',
+                        ticksize: 3,
+                        tooltips: tips,
+                        colors: ['#345132', '#e5e5e5'],
+                        textAngle: 90
+                    }
+                }).draw();
+            }
+            //http://www.rgraph.net/docs/line.html#colors
+    </script>
 </body>
 
 </html>
