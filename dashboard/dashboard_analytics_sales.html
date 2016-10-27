@@ -68,9 +68,12 @@
                         <option>Select product</option>
                         <option value="all">All products</option>
                     </select>
+                    <input class="select-date-product-submit" type="submit" name="submit" value="Show">
                 </div>
             </form>
-            <canvas id="cvs" width="780" height="550">[No canvas support]</canvas>
+            <canvas id="cvs" width="780" height="450">[No canvas support]</canvas>
+            <p class="total-period">12 views - 6 sales - $22 income</p>
+            <p class="total-all">$55 total income on 30/10/16</p>
         </div>
     </div>
     <footer class="index-footer">
@@ -83,17 +86,33 @@
     </footer>
 
     <script>
-        var days = [];
-        //var v = 0;
+        (function () {
+            document.getElementById('end_graph_sales_date').disabled = true;
+        })();
+
 
         function getDate() {
+            var days = [];
+            var sales = [];
+            var two_date = [];
+            var tip = [];
+
             var start_date = document.getElementById('start_graph_sales_date');
             var end_date = document.getElementById('end_graph_sales_date');
+            if (end_date.disabled == true) {
+                end_date.disabled = false;
+            }
+            var date_now = new Date();
+            var max_date_month = +date_now.getMonth() + 1;
+            var max_date = date_now.getFullYear() + '-' + max_date_month + '-' + date_now.getDate();
+
             end_date.setAttribute('min', start_date.value);
+            end_date.setAttribute('max', max_date);
             var start_timestamp = Date.parse(start_date.value);
             var end_timestamp = Date.parse(end_date.value);
             var n_days = (end_timestamp - start_timestamp) / 86400000;
-            for (var i = 0; i <= n_days; i++) {
+            n_days = n_days + 1;
+            for (var i = 0; i < n_days; i++) {
                 var format = new Date(start_timestamp + i * 86400000);
                 var date = format.getDate();
                 if (date < 10) {
@@ -108,15 +127,56 @@
                     month = month;
                 }
                 days.push(date + '/' + month + '/' + format.getFullYear());
-
+                var n_random = (Math.floor(Math.random() * 10));
+                sales.push(n_random);
+                tip.push(days[i] + '<br>' + n_random.toString() + ' sales,<br>0 views');
             }
+            var ser = new Date(start_timestamp + (n_days / 2) * 86400000);
+            var middle = ser.getFullYear() + '-' + (+ser.getMonth() + 1) + '-' + ser.getDate();
+            two_date[0] = start_date.value;
+            //two_date[1] = middle;
+            two_date[1] = end_date.value;
 
-
-            //end_day.push(elem);
+            var y_scale = 10; //0
+            //var tips = sales.toString(); //[]
+            //   for (var i = 0; i < json.data.length; i++) {
+            //  tips.push(json.data[i].toString());
+            // if (json.data[i] > y_scale) {
+            //      y_scale = json.data[i];
+            //    }
+            //  }
+            var line = new RGraph.Line({
+                id: 'cvs',
+                // data: json.data,
+                data: sales, //[0, 10, 0, 3, 1],
+                options: {
+                    textAccessible: false,
+                    hmargin: 15,
+                    gutterBottom: 30,
+                    linewidth: 3,
+                    numxticks: n_days,
+                    backgroundGridAutofitNumvlines: n_days,
+                    ymax: y_scale,
+                    ylabelsCount: y_scale,
+                    numyticks: y_scale,
+                    backgroundGridAutofitNumhlines: y_scale,
+                    //labels: json.labels,
+                    labels: two_date, //days, //['1.10.2016', ' 2.10.2016', '3.10.2016', '4.10.2016', '5.10.2016'],
+                    gutterLeft: 35,
+                    tickmarks: 'circle',
+                    ticksize: 3,
+                    tooltips: tip,
+                    colors: ['#345132', '#e5e5e5'],
+                    textAngle: 0
+                }
+            }).draw();
             console.log('start_day ' + start_date.value);
             console.log('end_day ' + end_date.value);
             console.log('n_days ' + n_days);
             console.log('arr days ' + days);
+            console.log(' two_date[1] ' + two_date[1]);
+            console.log(' middle ' + middle);
+            console.log('tip ' + tip);
 
         }
         //console.log('end_day ' + end_day);
@@ -156,47 +216,47 @@
             req.send(null);
         }
         //var start_day = getDate();
-        // console.log('start_day ' + start_day);
+
         window.onload = function () {
             //RGraph.AJAX.getJSON('getdata.html?json', drawGraph);
         };
         window.onload = function () {
                 //function drawGraph(json) {
 
-
-                var y_scale = 10; //0
-                var tips = ['0', '10', '0', '3', '1']; //[]
-                //   for (var i = 0; i < json.data.length; i++) {
-                //  tips.push(json.data[i].toString());
-                // if (json.data[i] > y_scale) {
-                //      y_scale = json.data[i];
-                //    }
-                //  }
-                var line = new RGraph.Line({
-                    id: 'cvs',
-                    // data: json.data,
-                    data: [0, 10, 0, 3, 1],
-                    options: {
-                        textAccessible: false,
-                        hmargin: 15,
-                        gutterBottom: 100,
-                        linewidth: 3,
-                        numxticks: 10,
-                        backgroundGridAutofitNumvlines: 10,
-                        ymax: y_scale,
-                        ylabelsCount: y_scale,
-                        numyticks: y_scale,
-                        backgroundGridAutofitNumhlines: y_scale,
-                        //labels: json.labels,
-                        labels: days, //['1.10.2016', ' 2.10.2016', '3.10.2016', '4.10.2016', '5.10.2016'],
-                        gutterLeft: 35,
-                        tickmarks: 'circle',
-                        ticksize: 3,
-                        tooltips: tips,
-                        colors: ['#345132', '#e5e5e5'],
-                        textAngle: 60
-                    }
-                }).draw();
+                /*
+                                var y_scale = 10; //0
+                                var tips = ['0', '10', '0', '3', '1']; //[]
+                                //   for (var i = 0; i < json.data.length; i++) {
+                                //  tips.push(json.data[i].toString());
+                                // if (json.data[i] > y_scale) {
+                                //      y_scale = json.data[i];
+                                //    }
+                                //  }
+                                var line = new RGraph.Line({
+                                    id: 'cvs',
+                                    // data: json.data,
+                                    data: sales, //[0, 10, 0, 3, 1],
+                                    options: {
+                                        textAccessible: false,
+                                        hmargin: 15,
+                                        gutterBottom: 100,
+                                        linewidth: 3,
+                                        numxticks: 10,
+                                        backgroundGridAutofitNumvlines: 10,
+                                        ymax: y_scale,
+                                        ylabelsCount: y_scale,
+                                        numyticks: y_scale,
+                                        backgroundGridAutofitNumhlines: y_scale,
+                                        //labels: json.labels,
+                                        labels: days, //['1.10.2016', ' 2.10.2016', '3.10.2016', '4.10.2016', '5.10.2016'],
+                                        gutterLeft: 35,
+                                        tickmarks: 'circle',
+                                        ticksize: 3,
+                                        tooltips: tips,
+                                        colors: ['#345132', '#e5e5e5'],
+                                        textAngle: 60
+                                    }
+                                }).draw();*/
             }
             //http://www.rgraph.net/docs/line.html#colors
     </script>

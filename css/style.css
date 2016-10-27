@@ -22,7 +22,7 @@ body {
     max-width: 940px;
     margin: 0 auto;
     /*    font-size: 0;*/
-    outline: 1px solid red;
+    /*    outline: 1px solid red;*/
 }
 
 .reset-font {
@@ -932,11 +932,33 @@ a.footer-text:hover {
 }
 
 .select-date input[type=date] {
-    /*    width: 200px;*/
+    width: 247px;
     height: 31px;
     outline: none;
 }
 
 .select-product select {
+    width: 252px;
+    height: 35px;
     outline: none;
+}
+
+.select-date-product-submit {
+    width: 120px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-right: 70px;
+    margin-left: 90px;
+}
+
+.total-period,
+.total-all {
+    font-size: 1.666em;
+    font-weight: bold;
+    color: #21411e;
+    text-align: center;
+}
+
+.total-all {
+    font-size: 1.333em;
 }
