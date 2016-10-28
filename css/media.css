@@ -1,0 +1,64 @@
+/*---  Размер экрана меньше 480px ---*/
+
+@media screen and (max-width: 480px) {
+    .index-header {
+        background-position: 41%;
+    }
+    .logo {
+        margin-bottom: 20px;
+    }
+    .select-mobile {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 15px;
+        margin-left: 12px;
+        color: #21411e;
+        font-family: Courier;
+        font-size: 24px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border: 1px solid #e1e6e1;
+        border-radius: 1px;
+        outline: none;
+    }
+    .search {
+        display: block;
+        width: 280px;
+        padding: 10px;
+    }
+    .search input[type=text] {
+        width: 280px;
+        font-size: 18px;
+    }
+    .index-menu ul li {
+        display: block;
+    }
+    .index-menu ul li a {
+        width: 225px;
+        margin-right: 0;
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: center;
+        background-color: #fff;
+    }
+    .btn {
+        margin-bottom: 20px;
+        margin-left: 38px;
+    }
+    .features-link {
+        margin-left: 10px;
+    }
+    .select {
+        display: none;
+    }
+}
+
+
+/*---  Размер экрана больше 481px и меньше 650px ---*/
+
+@media screen and (min-width:481px) and (max-width:650px) {}
+
+
+/*---   Размер экрана больше 651px и меньше 770px    ----*/
+
+@media screen and (min-width:651px) and (max-width:770px) {}

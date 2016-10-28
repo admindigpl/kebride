@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../fonts/font-awesome.min.css">
+    <title>KEBRIDE</title>
+    <script src="../js/RGraph/RGraph.common.core.js"></script>
+    <script src="../js/RGraph/RGraph.common.dynamic.js"></script>
+    <script src="../js/RGraph/RGraph.common.tooltips.js"></script>
+    <script src="../js/RGraph/RGraph.line.js"></script>
+    <script src="../js/RGraph/RGraph.scatter.js"></script>
+</head>
+
+<body>
+    <header class="inner-header">
+        <div class="container">
+            <a href="../index.html">
+                <img src="../img/logo.png" alt="" class="logo"></a>
+            <ul class="inner-menu">
+                <li><a class="inner-menu-link-dashboard active-item" href="#">Dashboard</a></li>
+                <li><a class="inner-menu-link-profile" href="#">Profile</a></li>
+                <li><a class="inner-menu-link-community" href="#">Community</a></li>
+            </ul>
+            <div class="inner-notice"></div>
+            <div class="inner-user-submenu"></div>
+        </div>
+    </header>
+    <div class="container clearfix">
+        <div class="left-column font-reset">
+            <span class="left-column-list-title">Analytics</span>
+            <ul>
+                <li><a class="active-item" href="#">Views</a></li>
+                <li><a href="dashboard_analytics_sales.html">Sales</a></li>
+                <li><a href="dashboard_analytics_customers.html">Customers</a></li>
+                <li><a href="dashboard_analytics_orders.html">Orders</a></li>
+            </ul>
+            <span class="left-column-list-title">Products</span>
+            <ul>
+                <li><a href="dashboard_products_brands.html">Brands</a></li>
+                <li><a href="dashboard_products_products.html">Products</a></li>
+            </ul>
+            <span class="left-column-list-title">Marketing</span>
+            <ul>
+                <li><a href="dashboard_marketing_email.html"><span>Email</span><span>marketing</span></a></li>
+                <li><a href="dashboard_marketing_discount_code.html"><span>Discount</span><span>codes</span></a></li>
+            </ul>
+            <span class="left-column-list-title">Sale settings</span>
+            <ul>
+                <li><a href="dashboard_saleset_payment_options.html"><span>Payment</span><span>options</span></a></li>
+                <li><a href="dashboard_saleset_fees_taxes.html">Fees & Taxes</a></li>
+            </ul>
+            <span class="left-column-list-title"><a href="dashboard_order_settings.html">Order settings</a></span>
+        </div>
+        <div class="right-column">
+            <form action="../select_date_product.php" method="get" class="clearfix" id="select_date_product">
+                <div class="select-date">Select date:
+                    <input type="date" id="start_graph_sales_date" name="start_graph_sales_date" onchange="updateStartDateAjax()"> -
+                    <input type="date" id="end_graph_sales_date" name="end_graph_sales_date" onchange="updateEndDateAjax()">
+                </div>
+                <div class="select-product">
+                    <select name="select_product" id="select_product" onchange="updateProductAjax()">
+                        <option value="all">All products</option>
+                        <option value="">Product</option>
+                    </select>
+                </div>
+            </form>
+            <canvas id="cvs" width="780" height="450">[No canvas support]</canvas>
+            <p class="total-period">12 views - 6 sales - $22 income</p>
+            <p class="total-all">$55 total income on 30/10/2016</p>
+        </div>
+    </div>
+    <footer class="index-footer">
+        <div class="container">
+            <a href="../index.html"><img class="logo" src="../img/logo.png" alt="logo" width="134" height="28"></a>
+            <span class="footer-text">Copyright 2016. All rights reserved.</span>
+            <a href="#" class="footer-text">Terms</a>
+            <a href="#" class="footer-text">Privacy policy</a>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var start_date = document.getElementById('start_graph_sales_date');
+            var end_date = document.getElementById('end_graph_sales_date');
+            var sel_product = document.getElementById('select_product');
+
+            //получаем текущую дату
+            var date_now = new Date();
+            var month_now = +date_now.getMonth() + 1;
+            var start_day = +date_now.getDate() - 7;
+            var max_date = date_now.getFullYear() + '-' + month_now + '-' + date_now.getDate();
+            var start_date_default = date_now.getFullYear() + '-' + month_now + '-' + start_day;
+
+            //устанавливаем аттрибуты по умолчанию
+            end_date.setAttribute('min', start_date_default);
+            end_date.setAttribute('max', max_date);
+            end_date.setAttribute('value', max_date);
+            start_date.setAttribute('value', start_date_default);
+
+            //отправляем данные по умолчанию для построения графика
+            var req = getXmlHttp();
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        var rez = req.responseText.trim();
+                    }
+                }
+
+            }
+            req.open('GET', '../select_date_product.php?start_date=' + start_date.value + '%end_date=' + end_date.value + '%product=' + sel_product.value, true);
+            req.send(null);
+            // console.log('sel_product ' + sel_product.value);
+        })();
+
+
+        //AJAX
+        function getXmlHttp() {
+            var xmlhttp;
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (E) {
+                    xmlhttp = false;
+                }
+            }
+            if (!xmlhttp && typeof XMLHttpRequest != 'undefined') {
+                xmlhttp = new XMLHttpRequest();
+            }
+            return xmlhttp;
+        }
+
+
+        function updateStartDateAjax() {
+            var req = getXmlHttp();
+            var start_date = document.getElementById('start_graph_sales_date').value;
+
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        var rez = req.responseText.trim();
+                    }
+                }
+
+            }
+            req.open('GET', '../select_date_product.php?start_date=' + start_date, true);
+            req.send(null);
+        }
+
+        function updateEndDateAjax() {
+            var req = getXmlHttp();
+            var end_date = document.getElementById('end_graph_sales_date').value;
+
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        var rez = req.responseText.trim();
+                    }
+                }
+
+            }
+            req.open('GET', '../select_date_product.php?end_date=' + end_date, true);
+            req.send(null);
+        }
+
+        function updateProductAjax() {
+            var req = getXmlHttp();
+            var select_product = document.getElementById('select_product').value;
+
+            req.onreadystatechange = function () {
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        var rez = req.responseText.trim();
+                    }
+                }
+
+            }
+            req.open('GET', '../select_date_product.php?product=' + select_product, true);
+            req.send(null);
+        }
+
+        /* закомментирована на время отладки
+                window.onload = function () {
+                    RGraph.AJAX.getJSON('../getdata.html?json', drawGraph);
+                };
+
+                function drawGraph(json) {
+
+                    var y_scale = 0; //0
+                    var tips = []; //[]
+                    for (var i = 0; i < json.data.length; i++) {
+                        tips.push(json.data[i].toString());
+                        if (json.data[i] > y_scale) {
+                            y_scale = json.data[i];
+                        }
+                    }
+                    var line = new RGraph.Line({
+                        id: 'cvs',
+                        data: json.data,
+                        options: {
+                            textAccessible: false,
+                            hmargin: 15,
+                            gutterBottom: 100,
+                            linewidth: 3,
+                            numxticks: 10,
+                            backgroundGridAutofitNumvlines: 10,
+                            ymax: y_scale,
+                            ylabelsCount: y_scale,
+                            numyticks: y_scale,
+                            backgroundGridAutofitNumhlines: y_scale,
+                            labels: json.labels,
+                            gutterLeft: 35,
+                            tickmarks: 'circle',
+                            ticksize: 3,
+                            tooltips: tips,
+                            colors: ['#345132', '#e5e5e5'],
+                        }
+                    }).draw();
+                }*/
+        //документация http://www.rgraph.net/docs/line.html#colors
+    </script>
+</body>
+
+</html>
