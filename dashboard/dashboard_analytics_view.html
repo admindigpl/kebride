@@ -58,7 +58,7 @@
             <span class="left-column-list-title"><a href="dashboard_order_settings.html">Order settings</a></span>
         </div>
         <div class="right-column">
-            <form action="../select_date_product.php" method="get" class="clearfix" id="select_date_product">
+            <form action=".../select_date_product.php" method="get" class="clearfix" id="select_date_product">
                 <div class="select-date">Select date:
                     <input type="date" id="start_graph_sales_date" name="start_graph_sales_date" onchange="updateStartDateAjax()"> -
                     <input type="date" id="end_graph_sales_date" name="end_graph_sales_date" onchange="updateEndDateAjax()">
@@ -113,7 +113,7 @@
                 }
 
             }
-            req.open('GET', '../select_date_product.php?start_date=' + start_date.value + '%end_date=' + end_date.value + '%product=' + sel_product.value, true);
+            req.open('GET', '.../select_date_product.php?start_date=' + start_date.value + '%end_date=' + end_date.value + '%product=' + sel_product.value, true);
             req.send(null);
             // console.log('sel_product ' + sel_product.value);
         })();
@@ -150,7 +150,7 @@
                 }
 
             }
-            req.open('GET', '../select_date_product.php?start_date=' + start_date, true);
+            req.open('GET', '.../select_date_product.php?start_date=' + start_date, true);
             req.send(null);
         }
 
@@ -166,7 +166,7 @@
                 }
 
             }
-            req.open('GET', '../select_date_product.php?end_date=' + end_date, true);
+            req.open('GET', '../.select_date_product.php?end_date=' + end_date, true);
             req.send(null);
         }
 
@@ -182,7 +182,7 @@
                 }
 
             }
-            req.open('GET', '../select_date_product.php?product=' + select_product, true);
+            req.open('GET', '.../select_date_product.php?product=' + select_product, true);
             req.send(null);
         }
 

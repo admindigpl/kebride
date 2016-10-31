@@ -103,19 +103,20 @@
             end_date.setAttribute('value', max_date);
             start_date.setAttribute('value', start_date_default);
 
+            //console.log('start_date ' + start_date.value);
+            //console.log('end_date ' + end_date.value);
+            //console.log('sel_product ' + sel_product.value);
+
+            //date_labels[0] = start_date.value;
+            //date_labels[1] = end_date.value;
+            //date_timestamp[0] = Date.parse(start_date.value);
+            //date_timestamp[1] = Date.parse(end_date.value);
+
             //отправляем данные по умолчанию для построения графика
             var req = getXmlHttp();
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        var rez = req.responseText.trim();
-                    }
-                }
-
-            }
-            req.open('GET', '../select_date_product.php?start_date=' + start_date.value + '%end_date=' + end_date.value + '%product=' + sel_product.value, true);
+            req.open('GET', '../select_date_product.php?start_graph=' + start_date.value + ' ' + end_date.value + ' ' + sel_product.value, true);
             req.send(null);
-            // console.log('sel_product ' + sel_product.value);
+            RGraph.AJAX.getJSON('../getdata.html?json', drawGraph);
         })();
 
         /*
@@ -230,93 +231,68 @@
             return xmlhttp;
         }
 
-        //отправляем новую дата начала графика(нужно еще добавить аттрибут min для end date)
+        //отправляем новую дата начала графика
         function updateStartDateAjax() {
-            var req = getXmlHttp();
             var start_date = document.getElementById('start_graph_sales_date').value;
-
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        var rez = req.responseText.trim();
-                    }
-                }
-
-            }
+            var end_date = document.getElementById('end_graph_sales_date');
+            end_date.setAttribute('min', start_date);
+            var req = getXmlHttp();
             req.open('GET', '../select_date_product.php?start_date=' + start_date, true);
             req.send(null);
         }
 
         function updateEndDateAjax() {
-            var req = getXmlHttp();
             var end_date = document.getElementById('end_graph_sales_date').value;
-
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        var rez = req.responseText.trim();
-                    }
-                }
-
-            }
+            var req = getXmlHttp();
             req.open('GET', '../select_date_product.php?end_date=' + end_date, true);
             req.send(null);
         }
 
         function updateProductAjax() {
-            var req = getXmlHttp();
             var select_product = document.getElementById('select_product').value;
-
-            req.onreadystatechange = function () {
-                if (req.readyState == 4) {
-                    if (req.status == 200) {
-                        var rez = req.responseText.trim();
-                    }
-                }
-
-            }
+            var req = getXmlHttp();
             req.open('GET', '../select_date_product.php?product=' + select_product, true);
             req.send(null);
         }
 
-        /* закомментирована на время отладки
-                window.onload = function () {
-                    RGraph.AJAX.getJSON('../getdata.html?json', drawGraph);
-                };
+        // window.onload = function () {
+        //RGraph.AJAX.getJSON('../getdata.html?json', drawGraph);
+        // };
 
-                function drawGraph(json) {
 
-                    var y_scale = 0; //0
-                    var tips = []; //[]
-                    for (var i = 0; i < json.data.length; i++) {
-                        tips.push(json.data[i].toString());
-                        if (json.data[i] > y_scale) {
-                            y_scale = json.data[i];
-                        }
-                    }
-                    var line = new RGraph.Line({
-                        id: 'cvs',
-                        data: json.data,
-                        options: {
-                            textAccessible: false,
-                            hmargin: 15,
-                            gutterBottom: 100,
-                            linewidth: 3,
-                            numxticks: 10,
-                            backgroundGridAutofitNumvlines: 10,
-                            ymax: y_scale,
-                            ylabelsCount: y_scale,
-                            numyticks: y_scale,
-                            backgroundGridAutofitNumhlines: y_scale,
-                            labels: json.labels,
-                            gutterLeft: 35,
-                            tickmarks: 'circle',
-                            ticksize: 3,
-                            tooltips: tips,
-                            colors: ['#345132', '#e5e5e5'],
-                        }
-                    }).draw();
-                }*/
+
+        function drawGraph(json) {
+            var y_scale = 0; //0
+            // var tips = []; //[]
+            for (var i = 0; i < json.data.length; i++) {
+                //tips.push(json.data[i].toString());
+                if (json.data[i] > y_scale) {
+                    y_scale = json.data[i];
+                }
+            }
+            var line = new RGraph.Line({
+                id: 'cvs',
+                data: json.data,
+                options: {
+                    textAccessible: false,
+                    hmargin: 15,
+                    gutterBottom: 100,
+                    linewidth: 3,
+                    numxticks: 7,
+                    backgroundGridAutofitNumvlines: 7,
+                    ymax: y_scale,
+                    ylabelsCount: y_scale,
+                    numyticks: y_scale,
+                    backgroundGridAutofitNumhlines: y_scale,
+                    labels: json.labels,
+                    gutterLeft: 35,
+                    tickmarks: 'circle',
+                    ticksize: 3,
+                    tooltips: json.tips,
+                    colors: ['#345132', '#e5e5e5'],
+                }
+            }).draw();
+        }
         //документация http://www.rgraph.net/docs/line.html#colors
     </script>
 </body>
