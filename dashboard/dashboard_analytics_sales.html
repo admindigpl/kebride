@@ -35,7 +35,7 @@
         <div class="left-column font-reset">
             <span class="left-column-list-title">Analytics</span>
             <ul>
-                <li><a href="dashboard_analytics_view.html">Views</a></li>
+                <li><a href="dashboard_analytics_views.html">Views</a></li>
                 <li><a class="active-item" href="#">Sales</a></li>
                 <li><a href="dashboard_analytics_customers.html">Customers</a></li>
                 <li><a href="dashboard_analytics_orders.html">Orders</a></li>
@@ -93,9 +93,24 @@
             //получаем текущую дату
             var date_now = new Date();
             var month_now = +date_now.getMonth() + 1;
-            var start_day = +date_now.getDate() - 7;
-            var max_date = date_now.getFullYear() + '-' + month_now + '-' + date_now.getDate();
-            var start_date_default = date_now.getFullYear() + '-' + month_now + '-' + start_day;
+
+            //изначально дата начала графика - сегодняшнее число минус 7дней
+            var start_day = new Date(Date.parse(date_now) - 604800000);
+            var month_start_day = +start_day.getMonth() + 1;
+
+            if (date_now.getDate() < 10) {
+                var date_now_date = '0' + date_now.getDate();
+            } else {
+                var date_now_date = date_now.getDate();
+            }
+            if (start_day.getDate() < 10) {
+                var date_start_day = '0' + start_day.getDate();
+            } else {
+                var date_start_day = start_day.getDate();
+            }
+
+            var max_date = date_now.getFullYear() + '-' + month_now + '-' + date_now_date;
+            var start_date_default = start_day.getFullYear() + '-' + month_start_day + '-' + date_start_day;
 
             //устанавливаем аттрибуты по умолчанию
             end_date.setAttribute('min', start_date_default);
@@ -107,16 +122,22 @@
             //console.log('end_date ' + end_date.value);
             //console.log('sel_product ' + sel_product.value);
 
-            //date_labels[0] = start_date.value;
-            //date_labels[1] = end_date.value;
-            //date_timestamp[0] = Date.parse(start_date.value);
-            //date_timestamp[1] = Date.parse(end_date.value);
+            var request_string = 'start_date=' + start_date.value + '&end_date=' + end_date.value + '&product=' + sel_product.value;
 
             //отправляем данные по умолчанию для построения графика
             var req = getXmlHttp();
-            req.open('GET', '../select_date_product.php?start_graph=' + start_date.value + ' ' + end_date.value + ' ' + sel_product.value, true);
-            req.send(null);
+            req.open('POST', '../select_date_product.php', true);
+            // Установка заголовков
+            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            /*req.send(request_string);
+            req.onreadystatechange = function () {
+                if (req.readyState != 4) return;
+                var responseText = String(req.responseText);
+                console.log('responseText= ' + responseText);
+            };*/
+            //строим график
             RGraph.AJAX.getJSON('../getdata.html?json', drawGraph);
+
         })();
 
         /*
@@ -236,50 +257,53 @@
             var start_date = document.getElementById('start_graph_sales_date').value;
             var end_date = document.getElementById('end_graph_sales_date');
             end_date.setAttribute('min', start_date);
+            var request_string = 'start_date=' + start_date;
             var req = getXmlHttp();
-            req.open('GET', '../select_date_product.php?start_date=' + start_date, true);
-            req.send(null);
+            req.open('POST', '../select_date_product.php', true);
+            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         }
 
         function updateEndDateAjax() {
             var end_date = document.getElementById('end_graph_sales_date').value;
+            var request_string = 'end_date=' + end_date;
             var req = getXmlHttp();
-            req.open('GET', '../select_date_product.php?end_date=' + end_date, true);
-            req.send(null);
+            req.open('POST', '../select_date_product.php', true);
+            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            req.send(request_string);
         }
 
         function updateProductAjax() {
             var select_product = document.getElementById('select_product').value;
+            var request_string = 'product=' + select_product;
             var req = getXmlHttp();
-            req.open('GET', '../select_date_product.php?product=' + select_product, true);
-            req.send(null);
+            req.open('POST', '../select_date_product.php', true);
+            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            req.send(request_string);
         }
 
         // window.onload = function () {
         //RGraph.AJAX.getJSON('../getdata.html?json', drawGraph);
         // };
 
-
-
         function drawGraph(json) {
             var y_scale = 0; //0
-            // var tips = []; //[]
-            for (var i = 0; i < json.data.length; i++) {
-                //tips.push(json.data[i].toString());
-                if (json.data[i] > y_scale) {
-                    y_scale = json.data[i];
+            var tips = []; //[]
+            for (var i = 0; i < json.sales.length; i++) {
+                tips.push(json.sales[i].toString() + ' sales<br>' + json.views[i] + ' views<br>' + json.tips_day[i]);
+                if (json.sales[i] > y_scale) {
+                    y_scale = json.sales[i];
                 }
             }
             var line = new RGraph.Line({
                 id: 'cvs',
-                data: json.data,
+                data: json.sales,
                 options: {
                     textAccessible: false,
                     hmargin: 15,
                     gutterBottom: 100,
                     linewidth: 3,
-                    numxticks: 7,
-                    backgroundGridAutofitNumvlines: 7,
+                    numxticks: json.n_days,
+                    backgroundGridAutofitNumvlines: json.n_days,
                     ymax: y_scale,
                     ylabelsCount: y_scale,
                     numyticks: y_scale,
@@ -288,7 +312,7 @@
                     gutterLeft: 35,
                     tickmarks: 'circle',
                     ticksize: 3,
-                    tooltips: json.tips,
+                    tooltips: tips,
                     colors: ['#345132', '#e5e5e5'],
                 }
             }).draw();
