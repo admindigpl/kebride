@@ -1,3 +1,8 @@
+html,
+body {
+    height: 100%;
+}
+
 body {
     font-family: Courier;
     font-size: 18px;
@@ -943,9 +948,10 @@ a.footer-text:hover {
 }
 
 .right-column {
-    float: right;
+    display: table;
+    /*   float: right;*/
     width: 780px;
-    min-height: 500px;
+    height: 710px;
     background-color: #f7f7f7;
     border-radius: 15px;
 }
@@ -982,4 +988,78 @@ a.footer-text:hover {
 
 .total-all {
     font-size: 1.333em;
+}
+
+
+/*--- ------------------- ---*/
+
+
+/*---- page dashboard_analytics_customers.html ---*/
+
+.content {
+    display: table-row;
+    height: 100%;
+}
+
+.table-data-dashboard {
+    width: 750px;
+    margin: 30px auto;
+    font-size: 14px;
+    color: #21411e;
+}
+
+.table-data-dashboard-head {
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+}
+
+.table-data-dashboard-head th {
+    padding-left: 5px;
+}
+
+.table-data-dashboard-row {
+    height: 28px;
+    background-color: #fff;
+    border: 1px solid #e1e6e1;
+}
+
+.table-data-dashboard-row td {
+    padding-left: 5px;
+}
+
+.table-data-dashboard-row td a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.table-data-dashboard-row td a:hover {
+    color: #0f0;
+    text-decoration: underline;
+}
+
+.table-data-dashboard-row td:first-child {
+    font-size: 18px;
+}
+
+.table-data-dashboard-row td:nth-child(5) {
+    position: relative;
+    width: 10px;
+    height: 10px;
+}
+
+.table-data-dashboard-row td:nth-child(5):after {
+    position: absolute;
+    top: 4px;
+    right: 7px;
+    content: '\f0d7';
+    font-family: 'FontAwesome';
+    font-weight: normal;
+    font-size: 18px;
+    color: #21411e;
+    cursor: pointer;
+}
+
+.table-data-dashboard-row td:nth-child(5):hover:after {
+    color: #0f0;
 }
